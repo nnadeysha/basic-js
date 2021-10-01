@@ -13,7 +13,37 @@ import { NotImplementedError } from '../extensions/index.js';
  * transform([1, 2, 3, '--discard-prev', 4, 5]) => [1, 2, 4, 5]
  * 
  */
-export default function transform(/* arr */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+export default function transform(arr) {
+  if (!Array.isArray(arr)) throw new Error("'arr' parameter must be an instance of the Array!");
+  let doPr = '--double-prev';
+  let doN = '--double-next';
+  let diPr = '--discard-prev';
+  let diN = '--discard-next';
+let newArr = [];
+  for(let i = 0; i < arr.length; i++) {
+    switch(arr[i]) {
+      case doPr:
+         if(arr[i - 1]  && arr[i - 2] !== diN)  {
+          newArr.push(arr[i - 1])
+        } break;
+      case doN:
+        if(arr[i+1] +1){
+          newArr.push(arr[i + 1])
+        } break;
+      case diPr:
+        if(arr[i - 1]  && arr[i - 2] !== diN){
+          newArr.pop(arr[i -1])
+        } break;
+      case diN :
+        if(arr[i + 1]){
+          i++;
+        } break;
+        default:
+        newArr.push(arr[i]);
+
+
+
+    }
+  }
+  return newArr
 }
